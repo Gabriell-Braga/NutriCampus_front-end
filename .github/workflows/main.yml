@@ -3,7 +3,7 @@ name: Build and Deploy Script
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build:
@@ -12,14 +12,21 @@ jobs:
     
     - name: Checkout Repository
       uses: actions/checkout@v2
+
     - name: Adding Node.js
       uses: actions/setup-node@v2
       with:
         node-version: 16
+
     - name: Install Dependencies
       run: npm install
+
+    - name: Run tests
+      run: npm run test --no-sandbox
+
     - name: Build Angular App
       run: npm run build
+
     - name: Deploy to gh pages
       run: |
         npx angular-cli-ghpages --dir=dist/NutriCampus_front-end
