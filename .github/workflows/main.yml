@@ -27,6 +27,11 @@ jobs:
     - name: Build Angular App
       run: npm run build
 
+    - name: Configure Git user
+      run: |
+        git config --global user.email "gabribragandrade@gmail.com"
+        git config --global user.name "Gabriel Braga"
+
     - name: Deploy to gh pages
       run: |
         npx angular-cli-ghpages --dir=dist/nutri-campus-front-end --no-silent
