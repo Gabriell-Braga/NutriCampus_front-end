@@ -9,3 +9,30 @@ body{
 app-root{
     min-height: 100vh;
 }
+
+html, body { height: 100%; }
+* { margin: 0; font-family: Poppins, sans-serif; }
+
+/* links */
+
+a{
+    @apply text-primary;
+}
+
+/* buttons */
+
+.button{
+    @apply bg-primary text-white py-3 px-4 rounded-xl flex items-center justify-center relative w-full;
+}
+
+.button.outlined{
+    @apply bg-transparent border-2 border-primary text-primary;
+}
+
+.button .icon{
+    @apply absolute left-4 text-start;
+}
+
+.button .text{
+    @apply text-center font-medium;
+}

@@ -1,3 +1,17 @@
-<div class="w-[100vw] h-[100vh] bg-primary flex items-center justify-center">
-    <img src="assets/img/logo-light.png" alt="" class="w-1/3">
+<div class="w-[100vw] h-[100vh] bg-primary flex flex-col justify-between items-center">
+    <div class="grow flex justify-center items-center">
+        <img src="assets/img/logo-light.png" alt="" class="w-4/6">
+    </div>
+    <div class="rounded-t-2xl bg-light px-5 pt-5 pb-16 flex flex-col items-center gap-3 w-full">
+        <div class="bg-gray-300 rounded-full w-12 h-2 mb-10"></div>
+        <button class="button outlined">
+            <i class="fa-regular fa-envelope text-xl icon"></i>
+            <span class="text">Continuar com o email</span>
+        </button>
+        <button class="button">
+            <i class="fa-brands fa-google text-lg icon"></i>
+            <span class="text">Continuar com o Google</span>
+        </button>
+        <span class="text-xs font-semibold text-gray-500 text-center mt-2">Novo usuário? <a routerLink="/cadastro">Cadastres-se</a></span>
+    </div>
 </div>
