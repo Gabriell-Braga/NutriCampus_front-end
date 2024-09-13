@@ -25,7 +25,7 @@ jobs:
       run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadless
 
     - name: Build Angular App
-      run: npm run build
+      run: npm run build -- --base-href "/NutriCampus_front-end/"
 
     - name: Configure Git user
       run: |
