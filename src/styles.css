@@ -11,12 +11,30 @@ app-root{
 }
 
 html, body { height: 100%; }
-* { margin: 0; font-family: Poppins, sans-serif; }
+* { 
+    margin: 0; 
+    font-family: Poppins, sans-serif;
+    letter-spacing: 0.75px;
+}
+
+/* letters */
+
+h1{
+    @apply !text-3xl !font-bold;
+}
+
+p{
+    @apply !text-xs;
+}
 
 /* links */
 
 a{
     @apply text-primary;
+}
+
+a.alternate{
+    @apply text-white;
 }
 
 /* buttons */
