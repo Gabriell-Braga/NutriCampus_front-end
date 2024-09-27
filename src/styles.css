@@ -54,3 +54,23 @@ a.alternate{
 .button .text{
     @apply text-center font-medium;
 }
+
+/* inputs */
+
+input:-webkit-autofill {
+    background-color: transparent !important;
+    -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+    -webkit-text-fill-color: black !important;
+}  
+
+input{
+    @apply p-3 w-full outline-none;
+}
+
+.input-group{
+    @apply relative border-2 border-gray-950 rounded-xl flex justify-center items-center overflow-hidden w-full;
+}
+
+.input-group .icon{
+    @apply text-lg mr-3;
+}
