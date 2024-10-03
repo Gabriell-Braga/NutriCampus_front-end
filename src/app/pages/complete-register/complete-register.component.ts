@@ -32,9 +32,7 @@ export class CompleteRegisterComponent implements OnInit {
   nextStep() {
     if(this.etapa < 8) {
       this.etapa++;
-    }
-
-    if(this.etapa === 8) {
+    }else if(this.etapa === 8) {
       this.router.navigate(['/progress']);
     }
   }
