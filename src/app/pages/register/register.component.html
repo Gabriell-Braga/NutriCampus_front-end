@@ -15,11 +15,6 @@
         <div class="bg-gray-300 rounded-full w-12 h-2 mb-3"></div>
         <div class="flex flex-col gap-3 w-full">
             <div class="input-group">
-                <input type="text" class="input" [(ngModel)]="nomeSobrenome" placeholder="Digite seu nome e sobrenome">
-                <i class="fa-solid fa-xmark icon" (click)="clearInput('nomeSobrenome')"></i>
-            </div>
-
-            <div class="input-group">
                 <input type="email" class="input" [(ngModel)]="email" placeholder="Digite seu email">
                 <i class="fa-solid fa-xmark icon" (click)="clearInput('email')"></i>
             </div>
@@ -38,9 +33,9 @@
             <a routerLink="/" class="button outlined !py-2">
                 <span class="text">Cancelar</span>
             </a>
-            <button class="button !py-2">
+            <a routerLink="/complete-register" class="button !py-2">
                 <span class="text">Continuar</span>
-            </button>
+            </a>
         </div>
         <span class="text-[10px] leading-4 font-medium text-gray-500 text-center mt-2">Ao confirmar, caso aconteça algum erro, você pode <a routerLink="/">alterar o e-mail e a senha a qualquer momento.</a></span>
         <button class="button">

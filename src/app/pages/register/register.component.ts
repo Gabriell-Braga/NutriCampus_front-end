@@ -7,7 +7,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
-  nomeSobrenome: string = '';
   email: string = '';
   senha: string = '';
   senhaConfirmacao: string = '';
@@ -19,7 +18,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  clearInput(field: 'nomeSobrenome' | 'email') {
+  clearInput(field: 'email') {
     this[field] = '';
   }
 
