@@ -11,7 +11,8 @@ import { FormsModule } from '@angular/forms';
 import { CompleteRegisterComponent } from './pages/complete-register/complete-register.component';
 import {MatSliderModule} from '@angular/material/slider';
 import { ProgressComponent } from './pages/progress/progress.component'
-
+import { HttpClientModule } from '@angular/common/http';
+  
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +27,8 @@ import { ProgressComponent } from './pages/progress/progress.component'
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
-    MatSliderModule
+    MatSliderModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
