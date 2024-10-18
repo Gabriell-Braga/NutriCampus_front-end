@@ -125,15 +125,7 @@ export class CompleteRegisterComponent implements OnInit {
           campus: this.campus
         }
 
-        this.authService.register(data).subscribe(
-          (response: any) => {
-            console.log(response);
-            this.router.navigate(['/login']);
-          },
-          (error: any) => {
-            this.errors = error.error.message;
-          }
-        );
+        this.authService.register(data);
         break;
     }
   }

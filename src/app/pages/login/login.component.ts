@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -10,17 +11,31 @@ export class LoginComponent implements OnInit {
   email: string = '';
   senha: string = '';
   passwordFieldType: string = 'password';
+  errors: string = '';
 
-  constructor() { }
+  constructor(
+    private authService: AuthService
+  ) { }
 
   ngOnInit(): void {
   }
 
   clearInput(field: 'email') {
-    this[field] = ''; // Acessa o campo do componente dinamicamente
+    this[field] = '';
   }
 
   togglePasswordVisibility(field: 'passwordFieldType') {
     this[field] = this[field] === 'password' ? 'text' : 'password';
+  }
+
+  login(){
+    if(!this.email){
+      this.errors = 'E-mail é obrigatório.';
+    }else if(!this.senha){
+      this.errors = 'Senha é obrigatória.';
+    }else{
+      this.errors = '';
+      this.authService.login({email: this.email, senha: this.senha});
+    }
   }
 }

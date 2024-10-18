@@ -11,7 +11,8 @@ import { FormsModule } from '@angular/forms';
 import { CompleteRegisterComponent } from './pages/complete-register/complete-register.component';
 import {MatSliderModule} from '@angular/material/slider';
 import { ProgressComponent } from './pages/progress/progress.component'
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthInterceptor } from './services/auth/auth.interceptor';
   
 @NgModule({
   declarations: [
@@ -30,7 +31,13 @@ import { HttpClientModule } from '@angular/common/http';
     MatSliderModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

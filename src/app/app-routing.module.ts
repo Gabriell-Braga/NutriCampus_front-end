@@ -5,13 +5,14 @@ import { RegisterComponent } from './pages/register/register.component';
 import { LoginComponent } from './pages/login/login.component';
 import { CompleteRegisterComponent } from './pages/complete-register/complete-register.component';
 import { ProgressComponent } from './pages/progress/progress.component';
+import { AuthGuard } from './guards/auth/auth.guard';
 
 const routes: Routes = [
   { path: '',                   component: HomeComponent },
   { path: 'register',           component: RegisterComponent },
   { path: 'login',              component: LoginComponent },
   { path: 'complete-register',  component: CompleteRegisterComponent},
-  { path: 'progress',           component: ProgressComponent}
+  { path: 'progress',           component: ProgressComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

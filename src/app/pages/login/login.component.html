@@ -24,11 +24,12 @@
                 <i class="fa-regular icon" [ngClass]="passwordFieldType === 'password' ? 'fa-eye': 'fa-eye-slash'" (click)="togglePasswordVisibility('passwordFieldType')"></i>
             </div>
         </div>
+        <span class="text-red-600 text-sm text-center mt-3">{{ errors }}</span>
         <div class="flex gap-5 w-full">
             <a routerLink="/" class="button outlined !py-2">
                 <span class="text">Cancelar</span>
             </a>
-            <button class="button !py-2">
+            <button class="button !py-2" (click)="login()">
                 <span class="text">Continuar</span>
             </button>
         </div>

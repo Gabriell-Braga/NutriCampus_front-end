@@ -1,17 +1,17 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AuthService } from './auth.service';
+import { PeriodicUpdatesService } from './periodic-updates.service';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
 
-describe('AuthService', () => {
-  let service: AuthService;
+describe('PeriodicUpdatesService', () => {
+  let service: PeriodicUpdatesService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [ HttpClientModule, RouterTestingModule ]
     });
-    service = TestBed.inject(AuthService);
+    service = TestBed.inject(PeriodicUpdatesService);
   });
 
   it('should be created', () => {
