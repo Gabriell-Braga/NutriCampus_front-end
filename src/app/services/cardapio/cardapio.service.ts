@@ -15,7 +15,7 @@ export class CardapioService {
     private router: Router
   ) { }
 
-  campusData(campus: string, data: string): Promise<boolean> {
+  getCardapioDia(campus: string, data: string): Promise<boolean> {
     return new Promise((resolve) => {
       this.http.get(this.global.getApiUrl() + 'cardapio-dia/' + campus + "/" + data).subscribe(
         (res: any) => {

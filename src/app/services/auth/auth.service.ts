@@ -49,6 +49,7 @@ export class AuthService {
       this.http.get(this.global.getApiUrl() + 'auth/me').subscribe(
         (res: any) => {
           this.setNome(res.nome);
+          this.setCampus(res.campus);
           resolve(true);
         },
         err => {
@@ -77,12 +78,20 @@ export class AuthService {
     return localStorage.getItem('nome');
   }
 
+  getCampus(){
+    return localStorage.getItem('campus');
+  }
+
   getAccessToken() {
     return localStorage.getItem('access_token');
   }
 
   setNome(nome: string) {
     localStorage.setItem('nome', nome);
+  }
+
+  setCampus(campus: string) {
+    localStorage.setItem('campus', campus);
   }
 
   setAccessToken(token: string) {
