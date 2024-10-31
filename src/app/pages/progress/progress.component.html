@@ -4,7 +4,7 @@
             <svg class="h-6 w-6 fill-none stroke-current" viewBox="0 0 20 22" xmlns="http://www.w3.org/2000/svg">
                 <path d="M19 20.5L18.8345 19.4362C18.6259 18.0954 17.7516 16.9469 16.455 16.5466C14.8635 16.0553 12.5095 15.5 10 15.5C7.49052 15.5 5.13654 16.0553 3.54504 16.5466C2.24842 16.9469 1.37405 18.0954 1.16547 19.4362L1 20.5M15 6C15 8.76142 12.7614 11 10 11C7.23858 11 5 8.76142 5 6C5 3.23858 7.23858 1 10 1C12.7614 1 15 3.23858 15 6Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-    
+
             <span class="font-bold text-2xl">Seu Progresso</span>
         </div>
 
@@ -13,13 +13,14 @@
         </svg>
     </div>
 
-    <div class="flex gap-6 items-start my-10">
-        <div class="flex flex-col gap-1 justify-center items-center" *ngFor="let day of daysOfMonth">
-            <span class="text-gray-700">{{ day.weekDay }}</span>
-            <span class="text-gray-700">{{ day.day }}</span>
-            <span class="text-primary text-2xl" *ngIf="day.day == selectedDay">•</span>
-        </div>
+    <div class="flex items-start my-10 w-full min-h-20 overflow-x-scroll overflow-y-hidden no-scrollbar" #days>
+      <div class="flex flex-col gap-1 justify-center items-center mx-3" *ngFor="let day of daysOfMonth">
+          <span class="text-gray-500 font-medium" [ngClass]="{'!text-primary !font-semibold': day.day == selectedDay}">{{ day.weekDay }}</span>
+          <span class="text-gray-500 font-medium" [ngClass]="{'!text-primary !font-semibold': day.day == selectedDay}">{{ day.day }}</span>
+          <span class="text-primary text-2xl" *ngIf="day.day == selectedDay">•</span>
+      </div>
     </div>
+
 
     <div class="w-full flex flex-col justify-center items-center gap-5 mb-20">
         <img src="assets/img/progress-banner.png" alt="" class="w-40">

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-progress',
@@ -10,6 +10,7 @@ export class ProgressComponent implements OnInit {
   daysOfMonth: { day: number, weekDay: string }[] = [];
   weekDays: string[] = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'];
   selectedDay: number = 1;
+  @ViewChild('days', { static: false}) days!: ElementRef;
 
   constructor() { }
 
@@ -19,6 +20,13 @@ export class ProgressComponent implements OnInit {
     const currentMonth = today.getMonth() + 1;
     this.generateDaysOfMonth(currentYear, currentMonth);
     this.selectedDay = today.getDate();
+
+    console.log(this.days);
+    let daysElement = this.days.nativeElement;
+    daysElement.scrollTo({
+      left: daysElement.scrollWidth * (this.selectedDay)/(this.daysOfMonth.length),
+      behavior: 'auto'
+    });
     console.log(this.daysOfMonth, this.selectedDay);
   }
 
