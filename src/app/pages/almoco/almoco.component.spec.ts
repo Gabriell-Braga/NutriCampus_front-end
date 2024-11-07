@@ -1,23 +1,23 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProgressComponent } from './progress.component';
+import { AlmocoComponent } from './almoco.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
 
-describe('ProgressComponent', () => {
-  let component: ProgressComponent;
-  let fixture: ComponentFixture<ProgressComponent>;
+describe('AlmocoComponent', () => {
+  let component: AlmocoComponent;
+  let fixture: ComponentFixture<AlmocoComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ProgressComponent ],
+      declarations: [ AlmocoComponent ],
       imports: [ RouterTestingModule, HttpClientModule ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProgressComponent);
+    fixture = TestBed.createComponent(AlmocoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

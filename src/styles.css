@@ -83,8 +83,16 @@ input, select, textarea{
     @apply !bg-white !border-2 !border-gray-950 !h-7 !w-7 !-bottom-4; /* Aumenta o tamanho do thumb */
 }
 
+.primary .mat-slider-thumb {
+    @apply !border-primary;
+}
+
 .mat-slider-track-fill {
     @apply !bg-gray-950;
+}
+
+.primary .mat-slider-track-fill {
+    @apply !bg-primary;
 }
 
 .mat-slider-track-wrapper{

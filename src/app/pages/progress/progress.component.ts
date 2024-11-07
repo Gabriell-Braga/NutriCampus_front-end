@@ -12,6 +12,7 @@ export class ProgressComponent implements OnInit, AfterViewInit {
   daysOfMonth: { day: number, weekDay: string }[] = [];
   weekDays: string[] = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'];
   selectedDay: number = 1;
+  selectedDate: string = '';
   almoco: any = {};
   jantar: any = {};
   openRefeicao: boolean = false;
@@ -30,6 +31,7 @@ export class ProgressComponent implements OnInit, AfterViewInit {
     this.generateDaysOfMonth(currentYear, currentMonth);
     this.selectedDay = today.getDate();
     let todayString = today.toISOString().split('T')[0];
+    this.selectedDate = todayString;
 
     this.cardapioService.getCardapioDia(this.authService.getCampus()!, todayString).subscribe(
       (cardapio: any) => {
@@ -69,6 +71,7 @@ export class ProgressComponent implements OnInit, AfterViewInit {
     let today = new Date();
     today.setFullYear(today.getFullYear(), today.getMonth(), day);
     let todayString = today.toISOString().split('T')[0];
+    this.selectedDate = todayString;
 
     this.almoco = {};
     this.jantar = {};

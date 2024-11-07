@@ -13,6 +13,8 @@ import {MatSliderModule} from '@angular/material/slider';
 import { ProgressComponent } from './pages/progress/progress.component'
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './services/auth/auth.interceptor';
+import { AlmocoComponent } from './pages/almoco/almoco.component';
+import { JantarComponent } from './pages/jantar/jantar.component';
   
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { AuthInterceptor } from './services/auth/auth.interceptor';
     LoginComponent,
     RegisterComponent,
     CompleteRegisterComponent,
-    ProgressComponent
+    ProgressComponent,
+    AlmocoComponent,
+    JantarComponent
   ],
   imports: [
     BrowserModule,

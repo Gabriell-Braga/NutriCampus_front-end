@@ -1,4 +1,4 @@
-<div class="flex flex-col justify-start w-full h-full p-5 bg-gray-100 overflow-y-scroll" (click)="openRefeicao = false">
+<div class="flex flex-col justify-start w-full h-full p-5 bg-gray-100 overflow-y-scroll">
     <div class="flex justify-between items-center">
         <div class="flex gap-8 items-center">
             <svg class="h-6 w-6 fill-none stroke-current" viewBox="0 0 20 22" xmlns="http://www.w3.org/2000/svg">
@@ -31,7 +31,7 @@
     <div class="rounded-lg bg-light flex flex-col gap-5 p-3 border border-gray-200" *ngIf="!isEmptyObject(almoco)">
         <div class="w-full flex justify-between items-center">
             <span class="text-primary font-bold">Cardápio do dia</span>
-            <span class="text-primary text-4xl font-extralight" (click)="$event.stopPropagation(); openRefeicao = true">+</span>
+            <span class="text-primary text-4xl font-extralight" (click)="openRefeicao = true">+</span>
         </div>
         <div class="rounded-lg bg-light flex flex-col gap-5 p-3 border border-gray-200">
             <div class="w-full flex justify-between items-center gap-3">
@@ -118,6 +118,26 @@
 </div>
 
 <!-- ADICIONAR REFEIÇÃO -->
-<div class="rounded-t-3xl bg-white fixed bottom-0 h-0 w-full transition-all ease-in-out duration-300" [ngClass]="{'!h-2/5': openRefeicao}">
+<div class="fixed bottom-0 left-0 z-20 h-full w-full bg-black bg-opacity-0 pointer-events-none" (click)="openRefeicao = false" [ngClass]="{'!bg-opacity-70 !pointer-events-auto': openRefeicao}">
+    <div class="rounded-t-3xl bg-white absolute bottom-0 h-0 w-full transition-all ease-in-out duration-500 shadow-xl shadow-black flex flex-col justify-start items-center overflow-hidden" (click)="$event.stopPropagation()" [ngClass]="{'!h-2/5 p-5': openRefeicao}">
+        <div class="flex justify-end w-full" (click)="openRefeicao = false">
+            <i class="fa-solid fa-xmark text-3xl"></i>
+        </div>
+        <span class="font-bold text-xl">Registrar Refeição</span>
 
+        <div class="flex gap-2 justify-center w-full mt-5">
+
+          <div routerLink="/almoco/{{ selectedDate }}" class="border-2 border-primary flex flex-col gap-3 justify-center items-center rounded-2xl w-full py-5">
+            <span class="flex items-center justify-center leading-none h-10 w-10 bg-primary text-white rounded-full text-2xl font-extralight"><i class="fa-solid fa-plus"></i></span>
+            <span>Almoço</span>
+          </div>
+
+          <div routerLink="/jantar/{{ selectedDate }}" class="border-2 border-primary flex flex-col gap-3 justify-center items-center rounded-2xl w-full py-5">
+            <span class="flex items-center justify-center leading-none h-10 w-10 bg-primary text-white rounded-full text-2xl font-extralight"><i class="fa-solid fa-plus"></i></span>
+            <span>Jantar</span>
+          </div>
+
+        </div>
+    </div>
 </div>
+
