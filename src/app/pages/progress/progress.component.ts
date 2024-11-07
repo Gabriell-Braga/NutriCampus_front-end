@@ -12,6 +12,10 @@ export class ProgressComponent implements OnInit, AfterViewInit {
   daysOfMonth: { day: number, weekDay: string }[] = [];
   weekDays: string[] = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'];
   selectedDay: number = 1;
+  almoco: any = {};
+  jantar: any = {};
+  openRefeicao: boolean = false;
+
   @ViewChild('days', { static: false}) days!: ElementRef;
 
   constructor(
@@ -27,9 +31,15 @@ export class ProgressComponent implements OnInit, AfterViewInit {
     this.selectedDay = today.getDate();
     let todayString = today.toISOString().split('T')[0];
 
-    this.cardapioService.getCardapioDia(this.authService.getCampus()!, todayString).then(
+    this.cardapioService.getCardapioDia(this.authService.getCampus()!, todayString).subscribe(
       (cardapio: any) => {
-        console.log(cardapio);
+        cardapio.forEach((element: any) => {
+          if (element.refeicao === 'almoco') {
+            this.almoco = element;
+          } else {
+            this.jantar = element;
+          }
+        });
       }
     );
   }
@@ -52,5 +62,31 @@ export class ProgressComponent implements OnInit, AfterViewInit {
       const weekDay = this.weekDays[currentDate.getDay()];
       this.daysOfMonth.push({ day, weekDay });
     }
+  }
+
+  selectDay(day: number): void {
+    this.selectedDay = day;
+    let today = new Date();
+    today.setFullYear(today.getFullYear(), today.getMonth(), day);
+    let todayString = today.toISOString().split('T')[0];
+
+    this.almoco = {};
+    this.jantar = {};
+
+    this.cardapioService.getCardapioDia(this.authService.getCampus()!, todayString).subscribe(
+      (cardapio: any) => {
+        cardapio.forEach((element: any) => {
+          if (element.refeicao === 'almoco') {
+            this.almoco = element;
+          } else {
+            this.jantar = element;
+          }
+        });
+      }
+    );
+  }
+
+  isEmptyObject(obj: any) {
+    return (obj && (Object.keys(obj).length === 0));
   }
 }

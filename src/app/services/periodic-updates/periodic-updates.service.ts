@@ -17,7 +17,9 @@ export class PeriodicUpdatesService implements OnDestroy {
   }
 
   updates() {
-    this.authService.me();
+    if(this.authService.isAuthenticated()){
+      this.authService.me();
+    }
   }
 
   ngOnDestroy() {

@@ -15,21 +15,7 @@ export class CardapioService {
     private router: Router
   ) { }
 
-  getCardapioDia(campus: string, data: string): Promise<boolean> {
-    return new Promise((resolve) => {
-      this.http.get(this.global.getApiUrl() + 'cardapio-dia/' + campus + "/" + data).subscribe(
-        (res: any) => {
-          console.log(res);
-          resolve(true);
-        },
-        err => {
-          console.log(err);
-          resolve(false);
-        }
-      );
-    });
+  getCardapioDia(campus: string, data: string) {
+    return this.http.get(this.global.getApiUrl() + 'cardapio-dia/' + campus + "/" + data);
   }
-  
-  
-
 }
