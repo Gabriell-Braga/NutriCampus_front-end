@@ -18,4 +18,8 @@ export class CardapioService {
   getCardapioDia(campus: string, data: string) {
     return this.http.get(this.global.getApiUrl() + 'cardapio-dia/' + campus + "/" + data);
   }
+
+  getPratos(){
+    return this.http.get(this.global.getApiUrl() + 'pratos/');
+  }
 }

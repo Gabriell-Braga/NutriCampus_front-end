@@ -7,7 +7,7 @@ export class GlobalService {
 
   constructor() { }
 
-  private api_url = 'https://nutricampus-api.onrender.com/';
+  private api_url = 'https://nutricampus-api.azurewebsites.net/';
 
   getApiUrl() {
     return this.api_url;

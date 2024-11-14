@@ -18,8 +18,12 @@ export class AlmocoComponent implements OnInit {
 
   data: string = '';
   almoco: any = {};
+  pratos: any = [];
   addPopup: boolean = false;
   porcoes: number | null = 5;
+  comidaSelecionada: string | null = null;
+
+  ingredientes: any = [];
 
   ngOnInit(): void {
     this.data = this.route.snapshot.paramMap.get('date')!;
@@ -33,7 +37,44 @@ export class AlmocoComponent implements OnInit {
       }
     );
 
+    this.cardapioService.getPratos().subscribe(
+      (pratos: any) => {
+        this.pratos = pratos;
+      }
+    );
+
     console.log(this.almoco);
   }
 
+  openAddPopup(comidaSelecionada: string): void {
+    this.addPopup = true;
+    this.comidaSelecionada = comidaSelecionada;
+  }
+
+  closeAddPopup(): void {
+    this.porcoes = 5;
+    this.addPopup = false;
+    this.comidaSelecionada = null;
+  }
+
+  submitPorcao(): void {
+    let idPrato = 0;
+
+    this.pratos.forEach((prato: any) => {
+      console.log(prato.nome_prato);
+      if (prato.nome_prato === this.comidaSelecionada) {
+        idPrato = prato.id;
+        console.log(idPrato);
+      }
+    });
+
+    this.ingredientes.push({
+      id_prato: idPrato,
+      quantidade: this.porcoes
+    });
+
+    console.log(this.ingredientes);
+
+    this.closeAddPopup();
+  }
 }

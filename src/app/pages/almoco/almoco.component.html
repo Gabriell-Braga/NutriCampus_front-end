@@ -16,28 +16,30 @@
           <span class="text-gray-500">0 g</span>
         </div>
       </div>
-      <span class="flex items-center justify-center leading-none h-9 w-9 bg-primary text-white rounded-full text-xl font-extralight" (click)="addPopup = true"><i class="fa-solid fa-plus"></i></span>
+      <span class="flex items-center justify-center leading-none h-9 w-9 bg-primary text-white rounded-full text-xl font-extralight" (click)="openAddPopup(almoco.arroz_principal)"><i class="fa-solid fa-plus"></i></span>
     </div>
   </div>
 </div>
 
 <!-- POPUP ADICIONAR -->
-<div class="fixed bottom-0 left-0 z-20 h-full w-full bg-black bg-opacity-0 pointer-events-none" (click)="addPopup = false" [ngClass]="{'!bg-opacity-70 !pointer-events-auto': addPopup}">
-  <div class="rounded-t-3xl bg-white absolute bottom-0 h-0 w-full transition-all ease-in-out duration-500 shadow-xl shadow-black flex flex-col justify-start items-center overflow-hidden" (click)="$event.stopPropagation()" [ngClass]="{'!h-1/2 p-5': addPopup}">
-      <div class="flex justify-end w-full" (click)="addPopup = false">
-          <i class="fa-solid fa-xmark text-3xl"></i>
-      </div>
-      <span class="font-bold text-xl text-center mx-8">Você serviu quantas porções de ?</span>
-      <span class="text-gray-500 text-sm my-3">1 porção equivale a 100 g</span>
-
-      <div class="flex flex-col items-center w-full text-center">
-        <input type="number" class="bg-light border border-primary text-primary rounded-lg py-3 px-4 mt-3 w-16 text-center" [(ngModel)]="porcoes">
-
-        <span class="mt-3 text-gray-600">{{ porcoes!*100 }} g</span>
-
-        <mat-slider [(ngModel)]="porcoes" min="0" max="10" step="1" class="w-5/6 mt-2 primary" (input)="porcoes = $event.value">
-            <input matSliderThumb value="1.5">
-        </mat-slider>
+<div class="fixed bottom-0 left-0 z-20 h-full w-full bg-black bg-opacity-0 pointer-events-none" (click)="closeAddPopup()" [ngClass]="{'!bg-opacity-70 !pointer-events-auto': addPopup}">
+  <div class="rounded-t-3xl bg-white absolute bottom-0 h-0 w-full transition-all ease-in-out duration-500 shadow-xl shadow-black flex flex-col justify-start items-center overflow-hidden" (click)="$event.stopPropagation()" [ngClass]="{'!h-2/3 p-5': addPopup}">
+    <div class="flex justify-end w-full" (click)="closeAddPopup()">
+        <i class="fa-solid fa-xmark text-3xl"></i>
     </div>
+    <span class="font-bold text-xl text-center mx-8">Você serviu quantas porções de ?</span>
+    <span class="text-gray-500 text-sm my-3">1 porção equivale a 100 g</span>
+
+    <div class="flex flex-col items-center w-full text-center">
+      <input type="number" class="bg-light border border-primary text-primary rounded-lg py-3 px-4 mt-3 w-16 text-center" [(ngModel)]="porcoes">
+
+      <span class="mt-3 text-gray-600">{{ porcoes!*100 }} g</span>
+
+      <mat-slider [(ngModel)]="porcoes" min="0" max="10" step="1" class="w-5/6 mt-2 primary" (input)="porcoes = $event.value">
+          <input matSliderThumb value="1.5">
+      </mat-slider>
+    </div>
+
+    <button class="button mt-10" (click)="submitPorcao()">Salvar</button>
   </div>
 </div>
