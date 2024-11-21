@@ -22,4 +22,16 @@ export class CardapioService {
   getPratos(){
     return this.http.get(this.global.getApiUrl() + 'pratos/');
   }
+
+  getConsumoHoje(){
+    return this.http.get(this.global.getApiUrl() + 'refeicao/consumo/hoje');
+  }
+
+  getConsumoEspecifico(data: any){
+    return this.http.get(this.global.getApiUrl() + 'refeicao/consumo', data);
+  }
+
+  postRefeicao(data: any){
+    return this.http.post(this.global.getApiUrl() + 'refeicao/create', data);
+  }
 }

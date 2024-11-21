@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { GlobalService } from 'src/app/services/global/global.service';
 
 @Component({
   selector: 'app-complete-register',
@@ -24,7 +25,8 @@ export class CompleteRegisterComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private globalService: GlobalService
   ) { }
 
   ngOnInit(): void {
@@ -67,12 +69,12 @@ export class CompleteRegisterComponent implements OnInit {
           this.errors = 'Data de aniversário é obrigatória.';
           break;
         }
-    
+
         const dataAniversario = new Date(this.dataAniversario);
         const hoje = new Date();
         const idade = hoje.getFullYear() - dataAniversario.getFullYear();
         const isMenorDe18 = idade < 18 || (idade === 18 && hoje < new Date(hoje.getFullYear(), dataAniversario.getMonth(), dataAniversario.getDate()));
-    
+
         if (dataAniversario > hoje) {
           this.errors = 'Data de aniversário não pode ser no futuro.';
         } else if (isMenorDe18) {

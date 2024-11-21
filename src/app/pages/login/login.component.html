@@ -18,7 +18,7 @@
                 <input type="email" class="input" [(ngModel)]="email" placeholder="Digite seu email">
                 <i class="fa-solid fa-xmark icon" (click)="clearInput('email')"></i>
             </div>
-            
+
             <div class="input-group">
                 <input [type]="passwordFieldType" class="input" [(ngModel)]="senha" placeholder="Digite sua senha">
                 <i class="fa-regular icon" [ngClass]="passwordFieldType === 'password' ? 'fa-eye': 'fa-eye-slash'" (click)="togglePasswordVisibility('passwordFieldType')"></i>
@@ -34,9 +34,9 @@
             </button>
         </div>
         <span class="text-[10px] leading-4 font-medium text-gray-500 text-center mt-2"><a routerLink="/">Esqueceu a senha?</a></span>
-        <button class="button">
+        <!-- <button class="button">
             <i class="fa-brands fa-google text-lg icon"></i>
             <span class="text">Continuar com o Google</span>
-        </button>
+        </button> -->
     </div>
 </div>

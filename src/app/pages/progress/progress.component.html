@@ -1,16 +1,22 @@
 <div class="flex flex-col justify-start w-full h-full p-5 bg-gray-100 overflow-y-scroll">
     <div class="flex justify-between items-center">
         <div class="flex gap-8 items-center">
-            <svg class="h-6 w-6 fill-none stroke-current" viewBox="0 0 20 22" xmlns="http://www.w3.org/2000/svg">
-                <path d="M19 20.5L18.8345 19.4362C18.6259 18.0954 17.7516 16.9469 16.455 16.5466C14.8635 16.0553 12.5095 15.5 10 15.5C7.49052 15.5 5.13654 16.0553 3.54504 16.5466C2.24842 16.9469 1.37405 18.0954 1.16547 19.4362L1 20.5M15 6C15 8.76142 12.7614 11 10 11C7.23858 11 5 8.76142 5 6C5 3.23858 7.23858 1 10 1C12.7614 1 15 3.23858 15 6Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+            <div (click)="changeUserPopup()" class="relative">
+              <svg class="h-6 w-6 fill-none stroke-current" viewBox="0 0 20 22" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M19 20.5L18.8345 19.4362C18.6259 18.0954 17.7516 16.9469 16.455 16.5466C14.8635 16.0553 12.5095 15.5 10 15.5C7.49052 15.5 5.13654 16.0553 3.54504 16.5466C2.24842 16.9469 1.37405 18.0954 1.16547 19.4362L1 20.5M15 6C15 8.76142 12.7614 11 10 11C7.23858 11 5 8.76142 5 6C5 3.23858 7.23858 1 10 1C12.7614 1 15 3.23858 15 6Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+
+              <div class="p-1 rounded-lg mt-2 absolute indent-0 w-16 shadow shadow-gray-700" *ngIf="userPopup">
+                <button (click)="logout()">Sair <i class="fa-solid fa-right-from-bracket"></i></button>
+              </div>
+            </div>
 
             <span class="font-bold text-2xl">Seu Progresso</span>
         </div>
 
-        <svg class="h-6 w-6 fill-none stroke-current" viewBox="0 0 22 23" xmlns="http://www.w3.org/2000/svg">
+        <!-- <svg class="h-6 w-6 fill-none stroke-current" viewBox="0 0 22 23" xmlns="http://www.w3.org/2000/svg">
             <path d="M6 1V3M16 1V3M1 8H21M5.5 13H6.5M10.5 13H11.5M15.5 13H16.5M5.5 17H6.5M10.5 17H11.5M15.5 17H16.5M4 22H18C19.6569 22 21 20.6569 21 19V6C21 4.34315 19.6569 3 18 3H4C2.34315 3 1 4.34315 1 6V19C1 20.6569 2.34315 22 4 22Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        </svg> -->
     </div>
 
     <div class="flex items-start my-10 w-full min-h-20 overflow-x-scroll overflow-y-hidden no-scrollbar" #days>
@@ -22,10 +28,39 @@
     </div>
 
 
-    <div class="w-full flex flex-col justify-center items-center gap-5 mb-20">
+    <div class="w-full flex flex-col justify-center items-center gap-5 mb-20" *ngIf="consumo == 0">
         <img src="assets/img/progress-banner.png" alt="" class="w-40">
-        <span class="text-primary font-bold">Sem Registros Hoje</span>
+        <span class="text-primary font-bold" *ngIf="isToday()">Sem Registros Hoje</span>
+        <span class="text-primary font-bold" *ngIf="!isToday()">Sem Registros Nesse Dia</span>
     </div>
+
+    <div class="flex flex-col items-center gap-4 mb-20" *ngIf="consumo > 0">
+      <div class="relative w-60 h-60">
+        <div
+          class="absolute inset-0 rounded-full"
+          [ngStyle]="{
+            'clip-path': 'circle(50% at 50% 50%)',
+            background: 'conic-gradient(#F97316 ' + percent + '%, #E5E7EB ' + percent + '%)'
+          }"
+        ></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center bg-gray-100 rounded-full w-5/6 h-5/6">
+          <span class="text-primary text-xl font-bold">{{ consumo }} kcal</span>
+          <span class="text-black text-sm">consumidas hoje</span>
+        </div>
+      </div>
+
+      <div class="flex justify-between text-center w-full mt-5 mx-5">
+        <div class="flex flex-col">
+          <span class="text-black text-xl font-semibold">{{ getCaloriasIdeais() | number: '0.0-0' }} kcal</span>
+          <span class="text-black text-xs font-medium">consumo ideal diário</span>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-black text-xl font-semibold">{{ consumo | number: '0.0-0' }} kcal</span>
+          <span class="text-black text-xs font-medium">consumidas hoje</span>
+        </div>
+      </div>
+    </div>
+
 
     <!-- CARDAPIO -->
     <div class="rounded-lg bg-light flex flex-col gap-5 p-3 border border-gray-200" *ngIf="!isEmptyObject(almoco)">

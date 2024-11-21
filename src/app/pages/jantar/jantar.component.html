@@ -1,1 +1,64 @@
-<p>jantar works!</p>
+<div class="flex flex-col gap-8 justify-start w-full h-full p-5 bg-gray-100 overflow-y-scroll">
+  <div class="flex gap-8 items-center">
+    <div class="bg-gray-200 p-4 rounded-lg flex justify-center items-center" (click)="back()"><i class="fa-solid fa-chevron-left"></i></div>
+    <span class="text-2xl font-semibold">Jantar</span>
+  </div>
+
+  <span class="text-gray-500 font-semibold">Prato Principal</span>
+
+  <div class="flex flex-col gap-3 w-full" *ngFor="let campo of campos">
+    <div
+      class="shadow-lg shadow-slate-300 p-5 flex justify-between items-center rounded-xl border-2 border-primary"
+      [ngClass]="{ '!border-none': isPorcaoPushed(jantar[campo]) }"
+    >
+      <img [src]="'assets/img/emoji-' + campo+'.png'" alt="" class="w-12">
+      <div class="flex flex-col gap-2 w-1/2">
+        <span class="text-gray-700 font-semibold">{{ jantar[campo] }}</span>
+        <div class="flex gap-3">
+          <span class="text-gray-500">{{ getQntd(jantar[campo]) }} g</span>
+        </div>
+      </div>
+      <span
+        class="flex items-center justify-center leading-none h-9 w-9 bg-primary text-white rounded-full font-extralight"
+        (click)="openAddPopup(jantar[campo])"
+      >
+        <i
+          class="fa-solid"
+          [ngClass]="isPorcaoPushed(jantar[campo]) ? 'fa-pen' : 'fa-plus'"
+          text-xl
+        ></i>
+      </span>
+    </div>
+  </div>
+
+  <span class="text-gray-500 font-semibold">Resultados</span>
+  <div class="shadow-lg shadow-slate-300 p-5 flex justify-between items-center rounded-xl">
+    <span class="block text-black font-semibold">Total</span>
+    <span class="text-gray-500">{{ getQntdTotal() }} g</span>
+  </div>
+
+  <button class="button mt-10" (click)="confirmar()" [disabled]="ingredientes.length == 0">Confirmar</button>
+</div>
+
+<!-- POPUP ADICIONAR -->
+<div class="fixed bottom-0 left-0 z-20 h-full w-full bg-black bg-opacity-0 pointer-events-none" (click)="closeAddPopup()" [ngClass]="{'!bg-opacity-70 !pointer-events-auto': addPopup}">
+  <div class="rounded-t-3xl bg-white absolute bottom-0 h-0 w-full transition-all ease-in-out duration-500 shadow-xl shadow-black flex flex-col justify-start items-center overflow-hidden" (click)="$event.stopPropagation()" [ngClass]="{'!h-2/3 p-5': addPopup}">
+    <div class="flex justify-end w-full" (click)="closeAddPopup()">
+        <i class="fa-solid fa-xmark text-3xl"></i>
+    </div>
+    <span class="font-bold text-xl text-center mx-8">Você serviu quantas porções de ?</span>
+    <span class="text-gray-500 text-sm my-3">1 porção equivale a 100 g</span>
+
+    <div class="flex flex-col items-center w-full text-center">
+      <input type="number" class="bg-light border border-primary text-primary rounded-lg py-3 px-4 mt-3 w-16 text-center" [(ngModel)]="porcoes">
+
+      <span class="mt-3 text-gray-600">{{ porcoes!*100 }} g</span>
+
+      <mat-slider [(ngModel)]="porcoes" min="0" max="10" step="1" class="w-5/6 mt-2 primary" (input)="porcoes = $event.value">
+          <input matSliderThumb value="1.5">
+      </mat-slider>
+    </div>
+
+    <button class="button mt-10" (click)="submitPorcao()">Salvar</button>
+  </div>
+</div>

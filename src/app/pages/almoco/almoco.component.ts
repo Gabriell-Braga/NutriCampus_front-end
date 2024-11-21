@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { CardapioService } from 'src/app/services/cardapio/cardapio.service';
+import { GlobalService } from 'src/app/services/global/global.service';
 
 @Component({
   selector: 'app-almoco',
@@ -12,8 +13,10 @@ export class AlmocoComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private cardapioService: CardapioService,
-    private authService: AuthService
+    private authService: AuthService,
+    private globalService: GlobalService
   ) { }
 
   data: string = '';
@@ -23,9 +26,14 @@ export class AlmocoComponent implements OnInit {
   porcoes: number | null = 5;
   comidaSelecionada: string | null = null;
 
+  userPopup: boolean = false;
+
   ingredientes: any = [];
 
+  campos = [ "prato_principal",  "prato_veg", "arroz_principal",  "arroz_secundario", "feijao_principal",  "guarnicao", "salada"];
+
   ngOnInit(): void {
+    this.globalService.showLoading();
     this.data = this.route.snapshot.paramMap.get('date')!;
     this.cardapioService.getCardapioDia(this.authService.getCampus()!, this.data).subscribe(
       (cardapio: any) => {
@@ -40,15 +48,22 @@ export class AlmocoComponent implements OnInit {
     this.cardapioService.getPratos().subscribe(
       (pratos: any) => {
         this.pratos = pratos;
+        this.globalService.hideLoading();
       }
     );
+  }
 
-    console.log(this.almoco);
+  back(): void {
+    this.router.navigate(['/progress']);
   }
 
   openAddPopup(comidaSelecionada: string): void {
     this.addPopup = true;
     this.comidaSelecionada = comidaSelecionada;
+
+    if (this.isPorcaoPushed(comidaSelecionada)) {
+      this.porcoes = this.getQntd(comidaSelecionada) / 100;
+    }
   }
 
   closeAddPopup(): void {
@@ -57,24 +72,89 @@ export class AlmocoComponent implements OnInit {
     this.comidaSelecionada = null;
   }
 
-  submitPorcao(): void {
-    let idPrato = 0;
+  getQntdTotal(){
+    let qntd = 0;
 
-    this.pratos.forEach((prato: any) => {
-      console.log(prato.nome_prato);
-      if (prato.nome_prato === this.comidaSelecionada) {
-        idPrato = prato.id;
-        console.log(idPrato);
+    this.ingredientes.forEach((ingrediente: any) => {
+      qntd += ingrediente.quantidade;
+    });
+
+    return qntd;
+  }
+
+  getQntd(name: string): number {
+    let qntd = 0;
+
+    this.ingredientes.forEach((ingrediente: any) => {
+      if (ingrediente.nome_prato === name) {
+        qntd = ingrediente.quantidade;
       }
     });
 
-    this.ingredientes.push({
-      id_prato: idPrato,
-      quantidade: this.porcoes
-    });
+    return qntd;
+  }
 
-    console.log(this.ingredientes);
+  isPorcaoPushed(name: string): boolean {
+    return this.ingredientes.some((ingrediente: any) => {
+      if (ingrediente.nome_prato === name) {
+        return true;
+      }
+      return false;
+    });
+  }
+
+
+  submitPorcao(): void {
+    let idPrato = 0;
+
+    if(!this.isPorcaoPushed(this.comidaSelecionada!)) {
+
+      this.pratos.forEach((prato: any) => {
+        if (prato.nome_prato === this.comidaSelecionada) {
+          idPrato = prato.id_prato;
+        }
+      });
+
+      this.ingredientes.push({
+        nome_prato: this.comidaSelecionada,
+        id_prato: idPrato,
+        quantidade: this.porcoes! * 100
+      });
+    }else{
+      this.ingredientes.forEach((ingrediente: any) => {
+        if (ingrediente.nome_prato === this.comidaSelecionada) {
+          ingrediente.quantidade = this.porcoes! * 100;
+        }
+      });
+    }
 
     this.closeAddPopup();
   }
+
+  confirmar() {
+    this.globalService.showLoading();
+    this.ingredientes = this.ingredientes.map((ingrediente: { nome_prato: string; [key: string]: any }) => {
+      const { nome_prato, ...resto } = ingrediente;
+      return resto;
+    });
+
+    const data = {
+      "tipo_refeicao": "almoco",
+      "pratos": this.ingredientes
+    };
+
+    this.cardapioService.postRefeicao(data).subscribe(
+      (response: any) => {
+        this.router.navigate(['/progress']);
+        this.globalService.hideLoading();
+      },
+      (error: any) => {
+        console.log(error);
+        this.globalService.hideLoading();
+      }
+    );
+  }
+
+
+
 }

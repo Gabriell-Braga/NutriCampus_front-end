@@ -1,6 +1,8 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { JantarComponent } from './jantar.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('JantarComponent', () => {
   let component: JantarComponent;
@@ -8,7 +10,8 @@ describe('JantarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ JantarComponent ]
+      declarations: [ JantarComponent ],
+      imports: [ RouterTestingModule, HttpClientModule ]
     })
     .compileComponents();
   });
